@@ -22,6 +22,11 @@
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 
+//Added for the inappropriate gestures assignment
+
+@property (nonatomic, strong) UIPinchGestureRecognizer* pinchGesture;
+@property (nonatomic, strong) UILongPressGestureRecognizer* longPressGesture;
+
 @end
 
 @implementation BLCAwesomeFloatingToolbar
@@ -81,10 +86,17 @@
         self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panFired:)];
         self.panGesture.delegate = self;
         [self addGestureRecognizer:self.panGesture];
+        
+        self.pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchFired:)];
+        [self addGestureRecognizer:self.pinchGesture];
+        
+        self.longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressFired:)];
+        [self addGestureRecognizer:self.longPressGesture];
     }
-    
     return self;
 }
+
+
 
 - (void) layoutSubviews {
     // set the frames for the 4 labels
@@ -120,6 +132,25 @@
 
 #pragma mark - Touch Handling
 
+- (void) pinchFired:(UIPinchGestureRecognizer*)recognizer
+{
+    //Ideas:
+    if (recognizer.state == UIGestureRecognizerStateChanged)
+    {
+        
+        CGFloat scale = [recognizer scale];
+        
+        if ([self.delegate respondsToSelector:@selector(floatingToolbar:didPinchWithOffset:)])
+        {
+            [self.delegate floatingToolbar:self didPinchWithOffset:&scale];
+        }
+        
+    }
+    
+}
+
+
+
 /*- (UILabel *) labelFromTouches:(NSSet *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInView:self];
@@ -131,7 +162,7 @@
     return label;
 }
 
-
+ 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
     UITouch *touch = [touches anyObject];
@@ -179,6 +210,31 @@
     self.currentLabel = nil;
 }
 */
+
+
+- (void) longPressFired:(UILongPressGestureRecognizer*)recognizer
+{
+    //Ideas:
+    
+    if (recognizer.state == UIGestureRecognizerStateBegan)
+    {
+        UIColor* firstLabelColor = ((UILabel*)self.labels[0]).backgroundColor;
+        
+        for (NSInteger i = 0; i < self.colors.count; i++)
+        {
+            UILabel* currentLabel = self.labels[i];
+            
+            currentLabel.backgroundColor = ((UILabel*)self.labels[(i + 1) % self.colors.count]).backgroundColor;
+            
+            if (i == (self.colors.count - 1))
+            {
+                ((UILabel*)self.labels[i]).backgroundColor = firstLabelColor;
+            }
+        }
+        
+    }
+}
+
 #pragma mark - Button Enabling
 
 - (void) setEnabled:(BOOL)enabled forButtonWithTitle:(NSString *)title {
@@ -194,7 +250,7 @@
 #pragma mark - Gesture Recognizers
 
 - (void) tapFired:(UITapGestureRecognizer *)recognizer {
-    NSLog(@"%d",recognizer.view.tag);
+    NSLog(@"%ld",(long)recognizer.view.tag);
     if (recognizer.state == UIGestureRecognizerStateRecognized) {
         //CGPoint location = [recognizer locationInView:self];
         UIView *tappedView = recognizer.view;
@@ -225,5 +281,29 @@
         [recognizer setTranslation:CGPointZero inView:self];
     }
 }
+
+//Pinch
+
+
+- (void)handlePinchGesture:(UIPinchGestureRecognizer *)sender {
+    if ([sender numberOfTouches] != 2)
+        return;
+    
+
+
+//End Pinch
+
+}
+- (void) floatingToolbar:(BLCAwesomeFloatingToolbar *)toolbar didTryToPanWithOffset:(CGPoint)offset {
+    CGPoint startingPoint = toolbar.frame.origin;
+    CGPoint newPoint = CGPointMake(startingPoint.x + offset.x, startingPoint.y + offset.y);
+    
+    CGRect potentialNewFrame = CGRectMake(newPoint.x, newPoint.y, CGRectGetWidth(toolbar.frame), CGRectGetHeight(toolbar.frame));
+    
+    if (CGRectContainsRect(self.bounds, potentialNewFrame)) {
+        toolbar.frame = potentialNewFrame;
+    }
+}
+
 
 @end

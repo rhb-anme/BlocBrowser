@@ -10,6 +10,7 @@
 #import "BLCWebBrowserViewController.h"
 #import "BLCAwesomeFloatingToolbar.h"
 
+
 #define kBLCWebBrowserBackString NSLocalizedString(@"Back", @"Back command")
 #define kBLCWebBrowserForwardString NSLocalizedString(@"Forward", @"Forward command")
 #define kBLCWebBrowserStopString NSLocalizedString(@"Stop", @"Stop command")
