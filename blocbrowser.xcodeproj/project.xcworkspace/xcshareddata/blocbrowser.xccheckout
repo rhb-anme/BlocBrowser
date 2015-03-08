@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>331D6A2C-3972-4FEE-BD18-131EF4DF8580</string>
+	<key>IDESourceControlProjectName</key>
+	<string>blocbrowser</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>0EFF7357FA2581F770381A7BC54E94628D6DCD79</key>
+		<string>https://github.com/rhb-anme/blocbrowser.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>blocbrowser.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>0EFF7357FA2581F770381A7BC54E94628D6DCD79</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/rhb-anme/blocbrowser.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>0EFF7357FA2581F770381A7BC54E94628D6DCD79</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0EFF7357FA2581F770381A7BC54E94628D6DCD79</string>
+			<key>IDESourceControlWCCName</key>
+			<string>blocbrowser</string>
+		</dict>
+	</array>
+</dict>
+</plist>
